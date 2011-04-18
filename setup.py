@@ -18,7 +18,7 @@ distutils.core.setup(
     packages = ["hadoopfs"],
     author="Sreejith K",
     author_email="sreejithemk@gmail.com",
-    url="http://www.foobarnbaz.org/",
+    url="http://www.foobarnbaz.com/",
     download_url="http://github.com/semk/HadoopFS",
     license="http://www.apache.org/licenses/LICENSE-2.0",
     description="Thrift based client library for Hadoop Distributed FileSytem (HDFS)",
