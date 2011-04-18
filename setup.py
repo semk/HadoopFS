@@ -15,7 +15,7 @@ version = "1.0"
 distutils.core.setup(
     name="hadoopfs",
     version=version,
-    packages = ["hadoopfs"],
+    packages = ["hadoopfs", "hadoopfs.gen_py"],
     author="Sreejith K",
     author_email="sreejithemk@gmail.com",
     url="http://www.foobarnbaz.com/",
