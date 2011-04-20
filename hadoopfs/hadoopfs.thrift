@@ -22,14 +22,14 @@
  */
 
 namespace java org.apache.hadoop.thriftfs.api
-namespace py hadoopfs
+namespace php hadoopfs
 
 struct ThriftHandle {
-  1: i64 id
+  i64 id
 }
 
 struct Pathname {
-  1: string pathname
+  string pathname
 }
 
 struct FileStatus {
@@ -52,11 +52,11 @@ struct BlockLocation {
 }
 
 exception MalformedInputException {
-  1: string message
+  string message
 }
 
 exception ThriftIOException {
-  1: string message
+   string message
 }
 
 service ThriftHadoopFileSystem
@@ -86,10 +86,10 @@ service ThriftHadoopFileSystem
   ThriftHandle append(1:Pathname path) throws (1:ThriftIOException ouch),
 
   // write a string to the open handle for the file
-  bool write(1:ThriftHandle handle, 2:string data) throws (1:ThriftIOException ouch),
+  bool write(1:ThriftHandle handle, string data) throws (1:ThriftIOException ouch),
 
   // read some bytes from the open handle for the file
-  string read(1:ThriftHandle handle, 2:i64 offset, 3:i32 size) throws (1:ThriftIOException ouch),
+  string read(1:ThriftHandle handle, i64 offset, i32 size) throws (1:ThriftIOException ouch),
 
   // close file
   bool close(1:ThriftHandle out) throws (1:ThriftIOException ouch),

@@ -16,7 +16,7 @@ class HDFSClient(Client):
   def __init__(self, host, port, timeout_ms = 300000, do_open = 1):
     socket = TSocket.TSocket(host, port)
     socket.setTimeout(timeout_ms)
-    self.transport = TTransport.TFramedTransport(socket)
+    self.transport = TTransport.TBufferedTransport(socket)
     protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
     Client.__init__(self, protocol)
 
@@ -34,8 +34,9 @@ class HDFSClient(Client):
 
 def test():
   from gen_py.ttypes import Pathname
-  client = HDFSClient('127.0.0.1', 9000)
-  print client.exists(Pathname('/test'))
+  client = HDFSClient('127.0.0.1', 10101)
+  path = Pathname('/test')
+  print client.exists(path)
   client.close()
 
 if __name__ == '__main__':

@@ -7,12 +7,11 @@
 from thrift.Thrift import *
 
 from thrift.transport import TTransport
-from thrift.protocol import TBinaryProtocol, TProtocol
+from thrift.protocol import TBinaryProtocol
 try:
   from thrift.protocol import fastbinary
 except:
   fastbinary = None
-
 
 
 class ThriftHandle:
@@ -21,11 +20,7 @@ class ThriftHandle:
    - id
   """
 
-  thrift_spec = (
-    None, # 0
-    (1, TType.I64, 'id', None, None, ), # 1
-  )
-
+  thrift_spec = None
   def __init__(self, id=None,):
     self.id = id
 
@@ -38,7 +33,7 @@ class ThriftHandle:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == -1:
         if ftype == TType.I64:
           self.id = iprot.readI64();
         else:
@@ -54,14 +49,11 @@ class ThriftHandle:
       return
     oprot.writeStructBegin('ThriftHandle')
     if self.id != None:
-      oprot.writeFieldBegin('id', TType.I64, 1)
+      oprot.writeFieldBegin('id', TType.I64, -1)
       oprot.writeI64(self.id)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -80,11 +72,7 @@ class Pathname:
    - pathname
   """
 
-  thrift_spec = (
-    None, # 0
-    (1, TType.STRING, 'pathname', None, None, ), # 1
-  )
-
+  thrift_spec = None
   def __init__(self, pathname=None,):
     self.pathname = pathname
 
@@ -97,7 +85,7 @@ class Pathname:
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == -1:
         if ftype == TType.STRING:
           self.pathname = iprot.readString();
         else:
@@ -113,14 +101,11 @@ class Pathname:
       return
     oprot.writeStructBegin('Pathname')
     if self.pathname != None:
-      oprot.writeFieldBegin('pathname', TType.STRING, 1)
+      oprot.writeFieldBegin('pathname', TType.STRING, -1)
       oprot.writeString(self.pathname)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -273,9 +258,6 @@ class FileStatus:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -384,9 +366,6 @@ class BlockLocation:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -405,11 +384,7 @@ class MalformedInputException(Exception):
    - message
   """
 
-  thrift_spec = (
-    None, # 0
-    (1, TType.STRING, 'message', None, None, ), # 1
-  )
-
+  thrift_spec = None
   def __init__(self, message=None,):
     self.message = message
 
@@ -422,7 +397,7 @@ class MalformedInputException(Exception):
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == -1:
         if ftype == TType.STRING:
           self.message = iprot.readString();
         else:
@@ -438,14 +413,11 @@ class MalformedInputException(Exception):
       return
     oprot.writeStructBegin('MalformedInputException')
     if self.message != None:
-      oprot.writeFieldBegin('message', TType.STRING, 1)
+      oprot.writeFieldBegin('message', TType.STRING, -1)
       oprot.writeString(self.message)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __str__(self):
     return repr(self)
@@ -467,11 +439,7 @@ class ThriftIOException(Exception):
    - message
   """
 
-  thrift_spec = (
-    None, # 0
-    (1, TType.STRING, 'message', None, None, ), # 1
-  )
-
+  thrift_spec = None
   def __init__(self, message=None,):
     self.message = message
 
@@ -484,7 +452,7 @@ class ThriftIOException(Exception):
       (fname, ftype, fid) = iprot.readFieldBegin()
       if ftype == TType.STOP:
         break
-      if fid == 1:
+      if fid == -1:
         if ftype == TType.STRING:
           self.message = iprot.readString();
         else:
@@ -500,14 +468,11 @@ class ThriftIOException(Exception):
       return
     oprot.writeStructBegin('ThriftIOException')
     if self.message != None:
-      oprot.writeFieldBegin('message', TType.STRING, 1)
+      oprot.writeFieldBegin('message', TType.STRING, -1)
       oprot.writeString(self.message)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __str__(self):
     return repr(self)
@@ -522,3 +487,4 @@ class ThriftIOException(Exception):
 
   def __ne__(self, other):
     return not (self == other)
+

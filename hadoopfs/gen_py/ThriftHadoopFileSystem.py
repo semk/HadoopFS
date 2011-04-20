@@ -8,7 +8,7 @@ from thrift.Thrift import *
 from ttypes import *
 from thrift.Thrift import TProcessor
 from thrift.transport import TTransport
-from thrift.protocol import TBinaryProtocol, TProtocol
+from thrift.protocol import TBinaryProtocol
 try:
   from thrift.protocol import fastbinary
 except:
@@ -1146,9 +1146,6 @@ class setInactivityTimeoutPeriod_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1187,9 +1184,6 @@ class setInactivityTimeoutPeriod_result:
     oprot.writeStructBegin('setInactivityTimeoutPeriod_result')
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1246,9 +1240,6 @@ class shutdown_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1287,9 +1278,6 @@ class shutdown_result:
     oprot.writeStructBegin('shutdown_result')
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1347,9 +1335,6 @@ class create_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1419,9 +1404,6 @@ class create_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1539,9 +1521,6 @@ class createFile_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1611,9 +1590,6 @@ class createFile_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1671,9 +1647,6 @@ class open_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1743,9 +1716,6 @@ class open_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1803,9 +1773,6 @@ class append_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1875,9 +1842,6 @@ class append_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -1897,12 +1861,7 @@ class write_args:
    - data
   """
 
-  thrift_spec = (
-    None, # 0
-    (1, TType.STRUCT, 'handle', (ThriftHandle, ThriftHandle.thrift_spec), None, ), # 1
-    (2, TType.STRING, 'data', None, None, ), # 2
-  )
-
+  thrift_spec = None
   def __init__(self, handle=None, data=None,):
     self.handle = handle
     self.data = data
@@ -1922,7 +1881,7 @@ class write_args:
           self.handle.read(iprot)
         else:
           iprot.skip(ftype)
-      elif fid == 2:
+      elif fid == -1:
         if ftype == TType.STRING:
           self.data = iprot.readString();
         else:
@@ -1937,19 +1896,16 @@ class write_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('write_args')
+    if self.data != None:
+      oprot.writeFieldBegin('data', TType.STRING, -1)
+      oprot.writeString(self.data)
+      oprot.writeFieldEnd()
     if self.handle != None:
       oprot.writeFieldBegin('handle', TType.STRUCT, 1)
       self.handle.write(oprot)
       oprot.writeFieldEnd()
-    if self.data != None:
-      oprot.writeFieldBegin('data', TType.STRING, 2)
-      oprot.writeString(self.data)
-      oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2018,9 +1974,6 @@ class write_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2041,13 +1994,7 @@ class read_args:
    - size
   """
 
-  thrift_spec = (
-    None, # 0
-    (1, TType.STRUCT, 'handle', (ThriftHandle, ThriftHandle.thrift_spec), None, ), # 1
-    (2, TType.I64, 'offset', None, None, ), # 2
-    (3, TType.I32, 'size', None, None, ), # 3
-  )
-
+  thrift_spec = None
   def __init__(self, handle=None, offset=None, size=None,):
     self.handle = handle
     self.offset = offset
@@ -2068,12 +2015,12 @@ class read_args:
           self.handle.read(iprot)
         else:
           iprot.skip(ftype)
-      elif fid == 2:
+      elif fid == -1:
         if ftype == TType.I64:
           self.offset = iprot.readI64();
         else:
           iprot.skip(ftype)
-      elif fid == 3:
+      elif fid == -2:
         if ftype == TType.I32:
           self.size = iprot.readI32();
         else:
@@ -2088,23 +2035,20 @@ class read_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('read_args')
+    if self.size != None:
+      oprot.writeFieldBegin('size', TType.I32, -2)
+      oprot.writeI32(self.size)
+      oprot.writeFieldEnd()
+    if self.offset != None:
+      oprot.writeFieldBegin('offset', TType.I64, -1)
+      oprot.writeI64(self.offset)
+      oprot.writeFieldEnd()
     if self.handle != None:
       oprot.writeFieldBegin('handle', TType.STRUCT, 1)
       self.handle.write(oprot)
       oprot.writeFieldEnd()
-    if self.offset != None:
-      oprot.writeFieldBegin('offset', TType.I64, 2)
-      oprot.writeI64(self.offset)
-      oprot.writeFieldEnd()
-    if self.size != None:
-      oprot.writeFieldBegin('size', TType.I32, 3)
-      oprot.writeI32(self.size)
-      oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2173,9 +2117,6 @@ class read_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2233,9 +2174,6 @@ class close_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2304,9 +2242,6 @@ class close_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2376,9 +2311,6 @@ class rm_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2447,9 +2379,6 @@ class rm_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2520,9 +2449,6 @@ class rename_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2591,9 +2517,6 @@ class rename_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2651,9 +2574,6 @@ class mkdirs_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2722,9 +2642,6 @@ class mkdirs_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2782,9 +2699,6 @@ class exists_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2853,9 +2767,6 @@ class exists_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2913,9 +2824,6 @@ class stat_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -2985,9 +2893,6 @@ class stat_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3045,9 +2950,6 @@ class listStatus_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3125,9 +3027,6 @@ class listStatus_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3197,9 +3096,6 @@ class chmod_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3257,9 +3153,6 @@ class chmod_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3341,9 +3234,6 @@ class chown_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3401,9 +3291,6 @@ class chown_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3473,9 +3360,6 @@ class setReplication_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3533,9 +3417,6 @@ class setReplication_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3617,9 +3498,6 @@ class getFileBlockLocations_args:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3697,9 +3575,6 @@ class getFileBlockLocations_result:
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
-    def validate(self):
-      return
-
 
   def __repr__(self):
     L = ['%s=%r' % (key, value)
@@ -3711,3 +3586,5 @@ class getFileBlockLocations_result:
 
   def __ne__(self, other):
     return not (self == other)
+
+
