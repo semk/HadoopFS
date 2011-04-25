@@ -35,7 +35,7 @@ class HDFSClient(Client):
     self.transport.open()
     self.do_close = 1
 
-  def close_client(self):
+  def close_connection(self):
     if self.do_close:
       self.transport.close()
 
@@ -70,16 +70,17 @@ class Hfile(object):
     return self._fs.write(self._fh, data)
     
   def close(self):
+    self._fs.close(self._fh)
     del self._fh
     self._fh = None
-    self._fs.close_client()
+    self._fs.close_connection()
 
 
 def test():
   client = HDFSClient('127.0.0.1', 10101)
   path = Pathname('/test')
   print client.exists(path)
-  client.close_client()
+  client.close_connection()
   
   hfile = Hfile('127.0.0.1', 10101, '/test', 'w')
   hfile.write('test\n')
