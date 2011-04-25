@@ -3,9 +3,11 @@
 HADOOP_CONF_DIR=/etc/hadoop-0.20/conf
 # hadoop config
 CLASSPATH=${HADOOP_CONF_DIR}
-
+PWD=`pwd`
 HADOOP_HOME=/usr/lib/hadoop-0.20/
-for f in ${HADOOP_HOME}/*.jar \
+
+for f in ${PWD}/lib/*.jar \
+         ${HADOOP_HOME}/*.jar \
          ${HADOOP_HOME}/lib/*.jar \
          ${HADOOP_HOME}/contrib/thriftfs/*.jar
 do
