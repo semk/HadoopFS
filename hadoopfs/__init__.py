@@ -29,9 +29,9 @@ class HDFSClient(Client):
     Client.__init__(self, protocol)
 
     if do_open:
-      self.open(timeout_ms)
+      self.open_connection(timeout_ms)
 
-  def open(self, timeout_ms):
+  def open_connection(self, timeout_ms):
     self.transport.open()
     self.do_close = 1
 
@@ -43,28 +43,25 @@ class HDFSClient(Client):
 class Hfile(object):
   """A File-like interface for HDFS files.
   """
-  def __init__(self, hostname, port, filename, mode='r', buffer_size=0,
-          replication=1, block_size=0):
+  def __init__(self, hostname, port, filename, mode='r')
     self._pathname = Pathname(filename)
-    if mode == 'r':
-      flags = os.O_RDONLY
-    elif mode == 'w':
-      flags = os.O_WRONLY
-    else:
-      raise HDFSError('%s mode not supported' %mode)
     self._fs = HDFSClient(hostname, port)
-    self._buffer_size = buffer_size
-    self._replication = replication
-    self._block_size = block_size
-    self._fh = self._fs.createFile(self._pathname, flags, True, 
-                  self._buffer_size, self._replication, 
-                  self._block_size)
+    if mode == 'r':
+      self._fh = self._fs.open(self._pathname)
+    elif mode == 'w':
+      self._fh = self._fs.create(self._pathname)
+    else:
+      raise HDFSError('Invalid mode: %s' %mode)
+    self._seek_pos = 0
+
+  def seek(self, offset):
+    self._seek_pos = offset
 
   def read(self, size=None):
     stat = self._fs.stat(self._pathname)
     if not size:
       size = stat.length
-    return self._fs.read(self._fh, 0, size)
+    return self._fs.read(self._fh, self._seek_pos, size)
     
   def write(self, data):
     return self._fs.write(self._fh, data)
@@ -72,21 +69,28 @@ class Hfile(object):
   def close(self):
     self._fs.close(self._fh)
     del self._fh
-    self._fh = None
     self._fs.close_connection()
+    del self._fs
 
 
 def test():
-  client = HDFSClient('127.0.0.1', 10101)
+  import sys
+  if len(sys.argv) < 2:
+    print '%s <port>' %sys.argv[0]
+    sys.exit(1)
+
+  port = int(sys.argv[1])
+
+  client = HDFSClient('127.0.0.1', port)
   path = Pathname('/test')
   print client.exists(path)
   client.close_connection()
   
-  hfile = Hfile('127.0.0.1', 10101, '/test', 'w')
+  hfile = Hfile('127.0.0.1', port, '/test', 'w')
   hfile.write('test\n')
   hfile.close()
 
-  hfile = Hfile('127.0.0.1', 10101, '/test', 'r')
+  hfile = Hfile('127.0.0.1', port, '/test', 'r')
   data = hfile.read()
   hfile.close()
   print data
